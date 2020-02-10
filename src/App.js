@@ -13,7 +13,7 @@ import './App.css';
 export default class app extends Component  {
   state = {
     currentUser: null
-  }
+  };
   
   unsubscribeFromAuth = null
 
@@ -29,7 +29,6 @@ export default class app extends Component  {
               ...snapShot.data()
             }
           });
-          console.log(this.state)
         });
       } else {
 

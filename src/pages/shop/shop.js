@@ -6,7 +6,7 @@ export default class ShopPage extends Component {
 
     state = {
         collections: SHOP_DATA
-    }
+    };
 
     render() {
         const {collections} = this.state;

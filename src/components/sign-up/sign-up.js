@@ -11,7 +11,7 @@ export default class SignUp extends Component {
         email: "",
         password: "",
         confirmPassword: ""
-    }
+    };
 
     handleSubmit = async event => {
         event.preventDefault();

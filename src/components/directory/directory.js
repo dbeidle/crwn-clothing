@@ -10,7 +10,7 @@ export default class Directory extends Component {
                 title: "hats",
                 imageUrl: "/images/hats.png",
                 id: 1,
-                linkUrl: "hats"
+                linkUrl: "shop/hats"
               },
               {
                 title: "jackets",

@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {ReactComponent as Logo} from '../../assets/crown.svg'; // Importing .svg logo as a react component
 import { auth } from '../../firebase/firebase.utils';
+import CartIcon from '../cart-icon/cart-icon';
+import CartDropDown from '../cart-dropdown/cart-dropdown';
 import './header.scss';
 
-const Header = ( {currentUser} ) => (
+const Header = ( {currentUser, hidden} ) => (
  <div className="header">
      <Link className="logo-container" to="/"> {/*Creates an <a href> link for anything in between it's boundaries */}
         <Logo className="logo" />
@@ -26,12 +28,15 @@ const Header = ( {currentUser} ) => (
           SIGN IN
         </Link>
       )}
+      <CartIcon />
      </div>
+      {hidden ? null : <CartDropDown />}
  </div>
 );
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = ({user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden
 });
 
 export default connect(mapStateToProps)(Header);

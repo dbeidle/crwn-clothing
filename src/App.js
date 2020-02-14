@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { auth,createUserProfileDocument } from './firebase/firebase.utils';
+import { setCurrentUser } from './redux/user/user-actions';
+import { selectCurrentUser } from './redux/user/user-selector';
 import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import Header from './components/header/header';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
-import { auth,createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user-actions';
-import { selectCurrentUser } from './redux/user/user-selector';
+import CheckoutPage from './pages/checkout/checkout';
+
 
 
 import './App.css';
-import { createStore } from 'redux';
+
 
 
 class app extends Component  {
@@ -53,7 +55,9 @@ class app extends Component  {
           <Route exact path="/" component={HomePage} /> 
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/signin" render={() => this.props.currentUser ? (<Redirect to="/" />) : (<SignInAndSignUpPage />)} />
-          {/* <Route path="/signin" component={SignInAndSignUpPage} /> */}
+          {/* the above replaces this and redirects when user is signed in and removes access 
+          to /signin <Route path="/signin" component={SignInAndSignUpPage} /> */}
+          <Route exact path="/checkout" component={CheckoutPage} />
         </Switch>
       </div>
     );

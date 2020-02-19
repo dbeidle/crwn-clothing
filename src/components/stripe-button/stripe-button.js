@@ -11,7 +11,7 @@ const StripeCheckoutButton = ({price}) => {
     }
 
     return (
-        <StripeCheckout 
+        <StripeCheckout
             label="Pay Now"
             name="CRWN Clothing"
             billingAddress

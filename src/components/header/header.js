@@ -23,7 +23,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
     </LogoContainer>
     <OptionsContainer>
       <OptionLink to="/shop">SHOP</OptionLink>
-      <OptionLink to="/shop">CONTACT</OptionLink>
+      <OptionLink to="/contact">CONTACT</OptionLink>
       {/* The below code checks if the user is logged in and if so changes the header links for signin/signout respectively. */}
       {currentUser ? (
         <OptionLink as="div" onClick={signOutStart}>

@@ -1,13 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-//const path = require("path");  This is only needed for heroku
+const path = require("path"); //This is needed for the service-worker & heroku
 const dotenv = require("dotenv");
+const enforce = require("express-sslify");
 
 dotenv.config();
 
-// This was required for the heroku build. I am using nginx proxy w/this nodejs server
-// which made this code obsolete.
+// This was how the instructor built it for heroku, I am using an Ubuntu host with
+//nginx proxy w/ this server file for my back-end stripe server which made this code obsolete
 //if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -17,11 +18,12 @@ const port = process.env.PORT || 5555;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(cors());
 
-// This was how the instructor built it for heroku, I am using nginx proxy w/this nodejs server.
-// which made this code obsolete
+// This was how the instructor built it for heroku, I am using an Ubuntu host with
+//nginx proxy w/ this server file for my back-end stripe server which made this code obsolete
 //if (process.env.NODE_ENV === "production") {
 //  app.use(epress.static(path.join(__dirname, "client/build")));
 //  app.get("*", function(req, res) {
@@ -32,6 +34,10 @@ app.use(cors());
 app.listen(port, error => {
   if (error) throw error;
   console.log("Server is running on port " + port);
+});
+
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "public", "service-worker.js"));
 });
 
 // Respond to GET Requests with a basic string.
